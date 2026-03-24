@@ -89,7 +89,7 @@ export default function CellAnatomy({ controller }) {
           Organelle Tray
         </p>
         <h2 className="mt-2 text-2xl font-bold">Drag into the cell</h2>
-        <div className="mt-5 grid gap-3">
+        <div className="inventory-rail hide-scrollbar mt-5">
           {organelles.map((organelle) => (
             <button
               key={organelle.id}
@@ -141,7 +141,8 @@ export default function CellAnatomy({ controller }) {
         </div>
 
         <div className="mt-6 rounded-[28px] bg-[linear-gradient(180deg,#f0fdf4_0%,#ffffff_54%,#eff6ff_100%)] p-4 sm:p-6">
-          <div className="relative min-h-[420px] overflow-hidden rounded-[26px] border border-white/70 bg-white/85 p-4">
+          <div className="overflow-x-auto pb-2">
+            <div className="relative min-h-[420px] min-w-[640px] overflow-hidden rounded-[26px] border border-white/70 bg-white/85 p-4">
             <svg viewBox="0 0 640 360" className="absolute inset-0 h-full w-full">
               <motion.ellipse
                 cx="320"
@@ -219,6 +220,7 @@ export default function CellAnatomy({ controller }) {
                 </button>
               );
             })}
+            </div>
           </div>
 
           <div className="mt-5 flex flex-wrap gap-3">

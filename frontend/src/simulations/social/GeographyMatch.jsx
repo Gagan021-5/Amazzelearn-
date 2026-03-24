@@ -86,7 +86,7 @@ export default function GeographyMatch({ controller }) {
           Label Tray
         </p>
         <h2 className="mt-2 text-2xl font-bold">Country labels</h2>
-        <div className="mt-5 grid gap-3">
+        <div className="inventory-rail hide-scrollbar mt-5">
           {countries.map((country) => (
             <button
               key={country.id}
@@ -129,7 +129,8 @@ export default function GeographyMatch({ controller }) {
         </div>
 
         <div className="mt-6 rounded-[28px] bg-[linear-gradient(180deg,#ecfdf5_0%,#ffffff_52%,#eff6ff_100%)] p-4 sm:p-6">
-          <div className="relative min-h-[420px] overflow-hidden rounded-[26px] border border-white/70 bg-white/90 p-4">
+          <div className="overflow-x-auto pb-2">
+            <div className="relative min-h-[420px] min-w-[640px] overflow-hidden rounded-[26px] border border-white/70 bg-white/90 p-4">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(14,165,233,0.12),transparent_22%),radial-gradient(circle_at_82%_26%,rgba(16,185,129,0.14),transparent_18%),linear-gradient(180deg,rgba(186,230,253,0.2)_0%,rgba(255,255,255,0)_35%)]" />
             <svg viewBox="0 0 640 360" className="absolute inset-0 h-full w-full">
               <path d="M0 228h640" stroke="rgba(148,163,184,0.2)" strokeWidth="2" strokeDasharray="12 12" />
@@ -175,6 +176,7 @@ export default function GeographyMatch({ controller }) {
                 )}
               </button>
             ))}
+            </div>
           </div>
 
           <div className="mt-5 flex flex-wrap gap-3">

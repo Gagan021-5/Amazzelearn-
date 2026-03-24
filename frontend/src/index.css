@@ -5,6 +5,7 @@
 html {
   scroll-behavior: smooth;
   background: #f8fbff;
+  overflow-x: hidden;
 }
 
 body {
@@ -47,8 +48,11 @@ body,
 
   a,
   button,
-  input {
+  input,
+  select,
+  textarea {
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   ::selection {
@@ -93,6 +97,46 @@ body,
 
   .token-card {
     @apply rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-lg;
+  }
+
+  .inventory-rail {
+    @apply flex gap-3 overflow-x-auto pb-2;
+  }
+
+  .inventory-rail > * {
+    @apply min-w-[15.5rem] shrink-0;
+  }
+
+  .drop-slot {
+    @apply flex min-h-[132px] items-center justify-center rounded-[24px] border-2 border-dashed border-slate-300 bg-white/90 p-4 text-center shadow-sm transition duration-300 hover:border-sky-300;
+  }
+
+  .status-pill {
+    @apply rounded-full px-4 py-2 text-sm font-semibold;
+  }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .inventory-rail {
+    @apply grid overflow-visible pb-0;
+  }
+
+  .inventory-rail > * {
+    @apply min-w-0;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 15px;
   }
 }
 

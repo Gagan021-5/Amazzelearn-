@@ -91,7 +91,7 @@ export default function CivicsSort({ controller }) {
         </p>
         <h2 className="mt-2 text-2xl font-bold">Government responsibilities</h2>
 
-        <div className="mt-5 grid gap-3">
+        <div className="inventory-rail hide-scrollbar mt-5">
           {responsibilities.map((responsibility) => (
             <button
               key={responsibility.id}

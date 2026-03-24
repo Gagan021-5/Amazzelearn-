@@ -39,7 +39,7 @@ export default function SimulationCard({ simulation, index = 0 }) {
 
         <div className="mt-auto pt-8 text-sm font-semibold text-slate-900">
           Launch Simulation
-          <span className="ml-2 transition group-hover:translate-x-1">→</span>
+          <span className="ml-2 transition group-hover:translate-x-1">-&gt;</span>
         </div>
       </Link>
     </motion.article>

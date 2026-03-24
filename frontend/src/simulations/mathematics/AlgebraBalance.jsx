@@ -134,7 +134,8 @@ export default function AlgebraBalance({ controller }) {
         </div>
 
         <div className="mt-6 rounded-[28px] bg-[linear-gradient(180deg,#fff7ed_0%,#ffffff_56%,#eef6ff_100%)] p-4 sm:p-6">
-          <div className="relative min-h-[400px] overflow-hidden rounded-[26px] border border-white/70 bg-white/85 p-4">
+          <div className="overflow-x-auto pb-2">
+            <div className="relative min-h-[400px] min-w-[560px] overflow-hidden rounded-[26px] border border-white/70 bg-white/85 p-4">
             <div className="absolute bottom-0 left-1/2 h-28 w-24 -translate-x-1/2 rounded-t-[36px] bg-slate-300" />
             <div className="absolute bottom-24 left-1/2 h-0 w-0 -translate-x-1/2 border-l-[70px] border-r-[70px] border-b-[110px] border-l-transparent border-r-transparent border-b-slate-400" />
 
@@ -195,6 +196,7 @@ export default function AlgebraBalance({ controller }) {
                 </button>
               </div>
             </motion.div>
+            </div>
           </div>
 
           <div className="mt-5 flex flex-wrap gap-3">
