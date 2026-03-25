@@ -25,29 +25,29 @@ export default function App() {
       <div className="pointer-events-none fixed inset-0 -z-10">
         <motion.div
           animate={{
-            x: [0, 30, -20, 0],
-            y: [0, -20, 10, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-violet-200/30 blur-[100px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, -25, 15, 0],
-            y: [0, 15, -25, 0],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute -right-24 top-20 h-[400px] w-[400px] rounded-full bg-cyan-200/25 blur-[100px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, 20, -15, 0],
-            y: [0, -15, 20, 0],
+            x: [0, 40, -20, 0],
+            y: [0, -30, 15, 0],
           }}
           transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-32 left-1/3 h-[500px] w-[500px] rounded-full bg-rose-200/20 blur-[100px]"
+          className="absolute -left-40 -top-40 h-[550px] w-[550px] rounded-full bg-amazze-purple-200/25 blur-[120px]"
         />
-        <div className="absolute left-1/2 top-1/3 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-amber-100/15 blur-[80px]" />
+        <motion.div
+          animate={{
+            x: [0, -30, 20, 0],
+            y: [0, 20, -30, 0],
+          }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          className="absolute -right-32 top-20 h-[450px] w-[450px] rounded-full bg-amazze-mint-200/20 blur-[120px]"
+        />
+        <motion.div
+          animate={{
+            x: [0, 25, -18, 0],
+            y: [0, -18, 25, 0],
+          }}
+          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-40 left-1/3 h-[500px] w-[500px] rounded-full bg-amazze-orange-200/15 blur-[120px]"
+        />
+        <div className="absolute left-1/2 top-1/3 h-[380px] w-[380px] -translate-x-1/2 rounded-full bg-amazze-pink-100/12 blur-[100px]" />
       </div>
 
       <RouteScrollManager />

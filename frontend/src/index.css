@@ -11,11 +11,14 @@ html {
 
 body {
   @apply min-h-screen font-sans text-slate-800 antialiased;
-  background: #fafbff;
+  background: #fafbfe;
+  /* subtle dot-grid pattern */
   background-image:
-    radial-gradient(ellipse 80% 50% at 10% 5%, rgba(124,58,237,0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(6,182,212,0.07), transparent),
-    radial-gradient(ellipse 70% 45% at 50% 100%, rgba(244,63,94,0.05), transparent);
+    radial-gradient(circle, rgba(139,92,246,0.06) 1px, transparent 1px),
+    radial-gradient(ellipse 80% 50% at 10% 5%, rgba(139,92,246,0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(52,211,153,0.05), transparent),
+    radial-gradient(ellipse 70% 45% at 50% 100%, rgba(251,146,60,0.04), transparent);
+  background-size: 24px 24px, 100% 100%, 100% 100%, 100% 100%;
 }
 
 body,
@@ -26,29 +29,31 @@ body,
 /* ── Utilities ── */
 
 @layer utilities {
-  .grid-fade {
+  .grid-dots {
     background-image:
-      linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
-    background-size: 32px 32px;
+      radial-gradient(circle, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 
-  .text-gradient-violet {
-    @apply bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent;
+  .text-gradient-amazze {
+    @apply bg-gradient-to-r from-amazze-purple-500 via-amazze-pink-400 to-amazze-orange-400 bg-clip-text text-transparent;
   }
 
-  .text-gradient-coral {
-    @apply bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 bg-clip-text text-transparent;
+  .text-gradient-mint {
+    @apply bg-gradient-to-r from-amazze-mint-400 via-amazze-sky-400 to-amazze-purple-400 bg-clip-text text-transparent;
   }
 
-  .mesh-gradient {
+  .text-gradient-warm {
+    @apply bg-gradient-to-r from-amazze-orange-400 via-amazze-pink-400 to-amazze-purple-500 bg-clip-text text-transparent;
+  }
+
+  .bg-mesh-amazze {
     background:
-      radial-gradient(ellipse at 25% 20%, rgba(124,58,237,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 75% 20%, rgba(6,182,212,0.10) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 80%, rgba(244,63,94,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 20% 70%, rgba(16,185,129,0.06) 0%, transparent 40%),
-      radial-gradient(ellipse at 80% 60%, rgba(245,158,11,0.06) 0%, transparent 40%),
-      #fafbff;
+      radial-gradient(ellipse at 25% 20%, rgba(139,92,246,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 75% 20%, rgba(52,211,153,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(251,146,60,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 70%, rgba(56,189,248,0.05) 0%, transparent 40%),
+      #fafbfe;
   }
 }
 
@@ -73,28 +78,28 @@ body,
   }
 
   ::selection {
-    @apply bg-violet-100 text-violet-900;
+    @apply bg-amazze-purple-100 text-amazze-purple-700;
   }
 
   button:focus-visible,
   a:focus-visible,
   input:focus-visible {
-    @apply outline-none ring-4 ring-violet-200/80 ring-offset-2 ring-offset-white;
+    @apply outline-none ring-4 ring-amazze-purple-200/80 ring-offset-2 ring-offset-white;
   }
 }
 
-/* ── Component Layer: Soft Neon Glassmorphism ── */
+/* ── Component Layer ── */
 
 @layer components {
   /* Glass panels */
   .glass-card {
-    @apply rounded-3xl border border-white/60 bg-white/70 backdrop-blur-xl;
-    box-shadow: 0 20px 60px -20px rgba(15,23,42,0.18);
+    @apply rounded-3xl border border-white/60 bg-white/75 backdrop-blur-xl;
+    box-shadow: 0 4px 24px -4px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
   }
 
   .glass-card-solid {
-    @apply rounded-3xl border border-slate-200/50 bg-white;
-    box-shadow: 0 20px 60px -20px rgba(15,23,42,0.18);
+    @apply rounded-3xl border border-slate-100 bg-white;
+    box-shadow: 0 4px 24px -4px rgba(15,23,42,0.08);
   }
 
   .panel-card {
@@ -103,37 +108,36 @@ body,
   }
 
   /* Buttons */
-  .soft-button {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
+  .btn-pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold transition-all duration-300;
   }
 
-  .soft-button-primary {
-    @apply soft-button bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet-500/25;
-    box-shadow: 0 0 40px -12px rgba(124,58,237,0.35);
+  .btn-primary {
+    @apply btn-pill bg-gradient-to-r from-amazze-purple-500 to-amazze-purple-600 text-white shadow-purple-glow hover:-translate-y-0.5 hover:shadow-purple-glow-lg;
   }
 
-  .soft-button-secondary {
-    @apply soft-button bg-white/80 text-slate-700 ring-1 ring-slate-200/80 backdrop-blur hover:-translate-y-0.5 hover:bg-white hover:shadow-md;
+  .btn-secondary {
+    @apply btn-pill bg-white text-slate-700 ring-1 ring-slate-200/80 hover:-translate-y-0.5 hover:bg-slate-50 hover:shadow-soft;
   }
 
-  .soft-button-ghost {
-    @apply soft-button text-slate-600 hover:bg-slate-50 hover:text-slate-900;
+  .btn-ghost {
+    @apply btn-pill text-slate-600 hover:bg-slate-50 hover:text-slate-900;
   }
 
   /* Badges */
-  .subject-badge {
-    @apply inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.16em] text-violet-700 ring-1 ring-violet-100;
+  .badge-amazze {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-amazze-purple-50 px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-amazze-purple-600 ring-1 ring-amazze-purple-100;
   }
 
   /* Simulation canvas */
   .sim-canvas {
-    @apply relative overflow-hidden rounded-3xl border border-slate-200/50 bg-gradient-to-br from-white via-slate-50/80 to-violet-50/30;
+    @apply relative overflow-hidden rounded-3xl border border-slate-200/50 bg-gradient-to-br from-white via-slate-50/80 to-amazze-purple-50/20;
     box-shadow: inset 0 2px 4px rgba(15,23,42,0.06);
   }
 
   /* Token cards (drag items) */
   .token-card {
-    @apply rounded-2xl border border-slate-200/80 bg-white px-4 py-3 text-left transition-all duration-300 hover:-translate-y-1 hover:border-violet-200 hover:shadow-lg hover:shadow-violet-500/10;
+    @apply rounded-2xl border border-slate-200/80 bg-white px-4 py-3 text-left transition-all duration-300 hover:-translate-y-1 hover:border-amazze-purple-200 hover:shadow-lg hover:shadow-amazze-purple-500/10;
     box-shadow: 0 1px 3px rgba(15,23,42,0.06);
   }
 
@@ -148,7 +152,7 @@ body,
 
   /* Drop slots */
   .drop-slot {
-    @apply flex min-h-[132px] items-center justify-center rounded-2xl border-2 border-dashed border-slate-300/60 bg-slate-50/50 p-4 text-center transition-all duration-300 hover:border-violet-300 hover:bg-violet-50/30;
+    @apply flex min-h-[132px] items-center justify-center rounded-2xl border-2 border-dashed border-slate-300/60 bg-slate-50/50 p-4 text-center transition-all duration-300 hover:border-amazze-purple-300 hover:bg-amazze-purple-50/30;
     box-shadow: 0 1px 3px rgba(15,23,42,0.06);
   }
 
@@ -187,13 +191,13 @@ body,
 /* ── Range inputs ── */
 
 input[type="range"] {
-  @apply h-2 w-full appearance-none rounded-full bg-violet-100;
+  @apply h-2 w-full appearance-none rounded-full bg-amazze-purple-100;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  @apply h-6 w-6 appearance-none rounded-full border-4 border-white bg-violet-500 shadow-lg shadow-violet-500/30;
+  @apply h-6 w-6 appearance-none rounded-full border-4 border-white bg-amazze-purple-500 shadow-lg shadow-amazze-purple-500/30;
 }
 
 input[type="range"]::-moz-range-thumb {
-  @apply h-6 w-6 rounded-full border-4 border-white bg-violet-500 shadow-lg shadow-violet-500/30;
+  @apply h-6 w-6 rounded-full border-4 border-white bg-amazze-purple-500 shadow-lg shadow-amazze-purple-500/30;
 }

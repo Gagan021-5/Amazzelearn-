@@ -35,18 +35,34 @@ export default function SubjectHubPage() {
     <div className="px-4 pb-14 pt-6 sm:px-6 lg:px-8">
       {/* ═════════ HERO HEADER ═════════ */}
       <section className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden rounded-3xl">
-          <div className="absolute inset-0 mesh-gradient" />
-          <div className={`absolute inset-0 bg-gradient-to-br ${subject.accent} opacity-[0.07]`} />
+        <div className="relative overflow-hidden rounded-[2rem]">
+          <div className="absolute inset-0 bg-mesh-amazze" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${subject.accent} opacity-[0.06]`}
+          />
+
+          {/* Decorative shapes */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <motion.div
+              animate={{ y: [-6, 8, -6] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute right-[10%] top-[15%] h-10 w-10 rounded-full border-2 border-amazze-purple-200/30 bg-amazze-purple-100/20"
+            />
+            <motion.div
+              animate={{ y: [4, -8, 4], x: [0, 6, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-[20%] left-[8%] h-8 w-8 rounded-lg border-2 border-amazze-mint-200/30 bg-amazze-mint-100/20"
+            />
+          </div>
 
           <div className="relative px-6 py-12 sm:px-10 sm:py-16">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="max-w-2xl"
             >
-              <span className="subject-badge">
+              <span className="badge-amazze">
                 <Sparkles className="h-3 w-3" />
                 {subject.eyebrow}
               </span>
@@ -57,16 +73,20 @@ export default function SubjectHubPage() {
                 {subject.description}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  to={`/simulation/${allSimulations[0].id}`}
-                  className="soft-button-primary"
-                >
-                  <Sparkles className="h-4 w-4" />
-                  Launch Featured Lab
-                </Link>
-                <Link to="/" className="soft-button-secondary">
-                  Back Home
-                </Link>
+                <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    to={`/simulation/${allSimulations[0].id}`}
+                    className="btn-primary"
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    Launch Featured Lab
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                  <Link to="/" className="btn-secondary">
+                    Back Home
+                  </Link>
+                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -80,24 +100,26 @@ export default function SubjectHubPage() {
           <motion.aside
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
             className="lg:sticky lg:top-24 lg:self-start"
           >
-            <div className="rounded-2xl border border-white/50 bg-white/60 p-5 shadow-soft backdrop-blur-xl">
-              <div className="flex items-center gap-2 text-sm font-bold text-slate-900">
-                <Filter className="h-4 w-4 text-violet-500" />
+            <div className="rounded-3xl border border-white/50 bg-white/70 p-6 shadow-soft backdrop-blur-xl">
+              <div className="flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amazze-purple-50">
+                  <Filter className="h-4 w-4 text-amazze-purple-500" />
+                </div>
                 Filter Labs
               </div>
 
               {/* Premium pill search bar */}
-              <div className="relative mt-4">
+              <div className="relative mt-5">
                 <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search labs…"
-                  className="w-full rounded-full border border-slate-200/60 bg-white py-3 pl-10 pr-10 text-sm font-medium text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-violet-300 focus:outline-none focus:ring-4 focus:ring-violet-100"
+                  className="w-full rounded-full border border-slate-200/60 bg-white py-3 pl-10 pr-10 text-sm font-semibold text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-amazze-purple-300 focus:outline-none focus:ring-4 focus:ring-amazze-purple-100"
                 />
                 {searchQuery && (
                   <button
@@ -111,45 +133,47 @@ export default function SubjectHubPage() {
               </div>
 
               {searchQuery && (
-                <p className="mt-3 text-xs font-medium text-slate-400">
-                  <span className="font-bold text-violet-600">{filteredSimulations.length}</span>{" "}
+                <p className="mt-3 text-xs font-bold text-slate-400">
+                  <span className="text-amazze-purple-500">{filteredSimulations.length}</span>{" "}
                   of {allSimulations.length} labs
                 </p>
               )}
 
               {/* Subject highlights */}
               <div className="mt-5 border-t border-slate-200/40 pt-5">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400">
                   Available Topics
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {subject.highlights.map((h) => (
-                    <button
+                    <motion.button
                       key={h}
                       type="button"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setSearchQuery(h.split(" ")[0])}
-                      className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-600 transition hover:bg-violet-100"
+                      className="rounded-full bg-amazze-purple-50 px-3 py-1.5 text-xs font-bold text-amazze-purple-600 ring-1 ring-amazze-purple-100 transition hover:bg-amazze-purple-100"
                     >
                       {h}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
 
               {/* Quick nav */}
               <div className="mt-5 border-t border-slate-200/40 pt-5">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-slate-400">
                   Quick Launch
                 </p>
-                <div className="mt-3 space-y-2">
+                <div className="mt-3 space-y-1">
                   {allSimulations.map((sim) => (
                     <Link
                       key={sim.id}
                       to={`/simulation/${sim.id}`}
-                      className="group flex items-center justify-between rounded-xl px-3 py-2 text-sm text-slate-600 transition hover:bg-violet-50 hover:text-violet-700"
+                      className="group flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-amazze-purple-50 hover:text-amazze-purple-600"
                     >
-                      <span className="font-medium">{sim.title}</span>
-                      <ArrowRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100" />
+                      <span>{sim.title}</span>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-0 transition group-hover:opacity-100 group-hover:translate-x-0.5" />
                     </Link>
                   ))}
                 </div>
@@ -160,7 +184,7 @@ export default function SubjectHubPage() {
           {/* ── Simulation Cards Grid ── */}
           <div>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-2xl font-extrabold text-slate-900">
                 All {subject.title} Labs
               </h2>
               <p className="mt-1 text-sm text-slate-500">
@@ -189,20 +213,22 @@ export default function SubjectHubPage() {
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex min-h-[200px] items-center justify-center rounded-2xl border-2 border-dashed border-slate-200/60 bg-white/40"
+                className="flex min-h-[200px] items-center justify-center rounded-3xl border-2 border-dashed border-slate-200/60 bg-white/40"
               >
                 <div className="text-center">
                   <Search className="mx-auto h-10 w-10 text-slate-300" />
-                  <p className="mt-3 text-sm font-semibold text-slate-400">
+                  <p className="mt-3 text-sm font-bold text-slate-400">
                     No labs match &ldquo;{searchQuery}&rdquo;
                   </p>
-                  <button
+                  <motion.button
                     type="button"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
                     onClick={() => setSearchQuery("")}
-                    className="soft-button-secondary mt-3"
+                    className="btn-secondary mt-3"
                   >
                     Clear search
-                  </button>
+                  </motion.button>
                 </div>
               </motion.div>
             )}

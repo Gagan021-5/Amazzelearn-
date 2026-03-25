@@ -1,7 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Beaker, Brain, Globe, Sparkles, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  Beaker,
+  Brain,
+  Globe,
+  Rocket,
+  Sparkles,
+  Zap,
+  Layers,
+  Smartphone,
+  BookOpen,
+} from "lucide-react";
 import SubjectCard from "../components/SubjectCard";
 import { subjectCatalog } from "../data/subjects";
 import {
@@ -54,14 +65,19 @@ const stagger = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.15,
     },
   },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+const springUp = {
+  hidden: { opacity: 0, y: 40, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 200, damping: 20 },
+  },
 };
 
 export default function HomePage() {
@@ -69,61 +85,66 @@ export default function HomePage() {
     <div className="px-4 pb-14 pt-6 sm:px-6 lg:px-8">
       {/* ═════════ HERO SECTION ═════════ */}
       <section className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative overflow-hidden rounded-[2rem]">
           {/* Mesh gradient background */}
-          <div className="absolute inset-0 mesh-gradient" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(124,58,237,0.15),transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(6,182,212,0.12),transparent_50%),radial-gradient(ellipse_at_90%_30%,rgba(244,63,94,0.08),transparent_40%)]" />
+          <div className="absolute inset-0 bg-mesh-amazze" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(139,92,246,0.12),transparent_50%),radial-gradient(ellipse_at_70%_80%,rgba(52,211,153,0.10),transparent_50%),radial-gradient(ellipse_at_90%_30%,rgba(251,146,60,0.07),transparent_40%)]" />
 
           {/* Floating geometric shapes */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <motion.div
-              animate={{ y: [-8, 8, -8], rotate: [0, 90, 180, 270, 360] }}
+              animate={{ y: [-10, 10, -10], rotate: [0, 90, 180, 270, 360] }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute left-[8%] top-[15%] h-16 w-16 rounded-xl border-2 border-violet-300/30 bg-violet-200/20"
+              className="absolute left-[8%] top-[12%] h-14 w-14 rounded-2xl border-2 border-amazze-purple-300/30 bg-amazze-purple-200/20"
             />
             <motion.div
-              animate={{ y: [6, -10, 6] }}
+              animate={{ y: [8, -12, 8] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute right-[12%] top-[20%] h-12 w-12 rounded-full border-2 border-cyan-300/30 bg-cyan-200/20"
+              className="absolute right-[10%] top-[18%] h-10 w-10 rounded-full border-2 border-amazze-mint-300/30 bg-amazze-mint-200/20"
             />
             <motion.div
-              animate={{ y: [-6, 12, -6], x: [0, 8, 0] }}
+              animate={{ y: [-8, 14, -8], x: [0, 10, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[18%] left-[18%] h-10 w-10 rounded-lg border-2 border-rose-300/30 bg-rose-200/20"
+              className="absolute bottom-[15%] left-[15%] h-12 w-12 rounded-xl border-2 border-amazze-orange-300/30 bg-amazze-orange-200/20"
             />
             <motion.div
-              animate={{ y: [4, -8, 4] }}
+              animate={{ y: [5, -10, 5] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[25%] right-[20%] h-8 w-8 rounded-full border-2 border-amber-300/30 bg-amber-200/20"
+              className="absolute bottom-[22%] right-[18%] h-8 w-8 rounded-full border-2 border-amazze-pink-300/30 bg-amazze-pink-200/20"
+            />
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="absolute left-[50%] top-[8%] h-6 w-6 rounded-lg border-2 border-amazze-sky-300/20 bg-amazze-sky-100/15"
             />
           </div>
 
           {/* Hero content */}
-          <div className="relative px-6 py-16 sm:px-10 sm:py-20 lg:px-16 lg:py-28">
+          <div className="relative px-6 py-18 sm:px-10 sm:py-24 lg:px-16 lg:py-32">
             <motion.div
               variants={stagger}
               initial="hidden"
               animate="visible"
               className="mx-auto max-w-3xl text-center"
             >
-              <motion.div variants={fadeUp}>
-                <span className="inline-flex items-center gap-2 rounded-full bg-violet-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-violet-700 ring-1 ring-violet-200/80 backdrop-blur-sm">
+              <motion.div variants={springUp}>
+                <span className="badge-amazze">
                   <Sparkles className="h-3.5 w-3.5" />
-                  Project-Based Interactive Learning
+                  Interactive Learning Labs
                 </span>
               </motion.div>
 
               <motion.h1
-                variants={fadeUp}
-                className="mt-6 text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl"
+                variants={springUp}
+                className="mt-7 text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-[3.5rem]"
               >
                 Learn by doing with{" "}
-                <span className="text-gradient-violet">premium simulations</span>{" "}
+                <span className="text-gradient-amazze">premium simulations</span>{" "}
                 for every student.
               </motion.h1>
 
               <motion.p
-                variants={fadeUp}
+                variants={springUp}
                 className="mt-6 text-base leading-relaxed text-slate-500 sm:text-lg"
               >
                 Interactive STEM and humanities labs designed to be clear, playful,
@@ -131,78 +152,105 @@ export default function HomePage() {
               </motion.p>
 
               <motion.div
-                variants={fadeUp}
-                className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+                variants={springUp}
+                className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row"
               >
                 <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
                   animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{
+                    y: { duration: 2.5, repeat: Infinity, ease: "easeInOut" },
+                  }}
                 >
                   <Link
                     to="/subject/science"
-                    className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-500 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-violet-500/30 transition-all hover:shadow-2xl hover:shadow-violet-500/40"
+                    className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-amazze-purple-500 to-amazze-purple-600 px-8 py-4 text-sm font-extrabold text-white shadow-purple-glow-lg transition-all hover:shadow-purple-glow-lg"
                   >
-                    <Zap className="h-4 w-4" />
+                    <Rocket className="h-4.5 w-4.5 transition-transform group-hover:-rotate-12" />
                     Start Exploring
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </motion.div>
-                <Link
-                  to="/subject/mathematics"
-                  className="soft-button-secondary"
-                >
-                  Browse Mathematics
-                </Link>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    to="/subject/mathematics"
+                    className="btn-secondary"
+                  >
+                    Browse Mathematics
+                  </Link>
+                </motion.div>
               </motion.div>
             </motion.div>
 
             {/* Stats bar */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="mx-auto mt-14 grid max-w-2xl gap-4 sm:grid-cols-3"
+              transition={{ delay: 0.7, type: "spring", stiffness: 200, damping: 20 }}
+              className="mx-auto mt-16 grid max-w-2xl gap-4 sm:grid-cols-3"
             >
               {[
-                { icon: Beaker, label: "Subject Labs", value: subjectCatalog.length, color: "text-violet-600 bg-violet-50" },
-                { icon: Brain, label: "Simulations", value: simulationCatalog.length, color: "text-cyan-600 bg-cyan-50" },
-                { icon: Globe, label: "Max Attempts", value: 10, color: "text-rose-600 bg-rose-50" },
+                {
+                  icon: Beaker,
+                  label: "Subject Labs",
+                  value: subjectCatalog.length,
+                  color: "text-amazze-purple-500 bg-amazze-purple-50",
+                },
+                {
+                  icon: Brain,
+                  label: "Simulations",
+                  value: simulationCatalog.length,
+                  color: "text-amazze-sky-500 bg-amazze-sky-50",
+                },
+                {
+                  icon: Globe,
+                  label: "Max Attempts",
+                  value: 10,
+                  color: "text-amazze-orange-500 bg-amazze-orange-50",
+                },
               ].map((stat) => (
-                <div
+                <motion.div
                   key={stat.label}
-                  className="flex items-center gap-4 rounded-2xl border border-white/60 bg-white/60 p-4 backdrop-blur-sm"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="flex items-center gap-4 rounded-2xl border border-white/60 bg-white/70 p-4.5 backdrop-blur-sm shadow-soft"
                 >
-                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${stat.color}`}>
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${stat.color}`}
+                  >
                     <stat.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-slate-900">
+                    <p className="text-2xl font-extrabold text-slate-900">
                       <AnimatedCounter target={stat.value} />
                     </p>
-                    <p className="text-xs font-medium text-slate-400">{stat.label}</p>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                      {stat.label}
+                    </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ═════════ BENTO GRID — SUBJECT HUBS ═════════ */}
-      <section id="subject-hubs" className="mx-auto mt-16 max-w-7xl">
+      {/* ═════════ SUBJECT NAVIGATION GRID ═════════ */}
+      <section id="subject-hubs" className="mx-auto mt-20 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <span className="subject-badge">
+          <span className="badge-amazze">
             <Sparkles className="h-3 w-3" />
             Subject Hubs
           </span>
-          <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
+          <h2 className="mt-5 text-3xl font-extrabold sm:text-4xl">
             Choose your{" "}
-            <span className="text-gradient-violet">learning pathway</span>
+            <span className="text-gradient-amazze">learning pathway</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-slate-500">
             Each lab features consistent game mechanics, animated feedback, and
@@ -210,8 +258,8 @@ export default function HomePage() {
           </p>
         </motion.div>
 
-        {/* ── Bento Grid ── */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        {/* ── Subject Cards Grid ── */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {subjectCatalog.map((subject, index) => (
             <SubjectCard
               key={subject.id}
@@ -224,7 +272,7 @@ export default function HomePage() {
       </section>
 
       {/* ═════════ FEATURE TILES ═════════ */}
-      <section className="mx-auto mt-16 max-w-7xl">
+      <section className="mx-auto mt-20 max-w-7xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -232,22 +280,51 @@ export default function HomePage() {
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {[
-            { icon: "🧪", title: "SVG Simulations", desc: "Rich 2D visuals with real-time feedback." },
-            { icon: "🎯", title: "10-Attempt Loop", desc: "Gamified tries with progress tracking." },
-            { icon: "📱", title: "Mobile First", desc: "Responsive design for any device." },
-            { icon: "✨", title: "Guided Steps", desc: "Step-by-step learning instructions." },
+            {
+              icon: Layers,
+              title: "SVG Simulations",
+              desc: "Rich 2D visuals with real-time feedback.",
+              color: "text-amazze-purple-500 bg-amazze-purple-50",
+            },
+            {
+              icon: Zap,
+              title: "10-Attempt Loop",
+              desc: "Gamified tries with progress tracking.",
+              color: "text-amazze-orange-500 bg-amazze-orange-50",
+            },
+            {
+              icon: Smartphone,
+              title: "Mobile First",
+              desc: "Responsive design for any device.",
+              color: "text-amazze-sky-500 bg-amazze-sky-50",
+            },
+            {
+              icon: BookOpen,
+              title: "Guided Steps",
+              desc: "Step-by-step learning instructions.",
+              color: "text-amazze-mint-500 bg-amazze-mint-50",
+            },
           ].map((feature, i) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="rounded-2xl border border-slate-100 bg-white/80 p-5 backdrop-blur-sm transition-all hover:shadow-lg hover:shadow-violet-500/5"
+              transition={{ delay: i * 0.1, type: "spring", stiffness: 200, damping: 20 }}
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="rounded-3xl border border-slate-100 bg-white/90 p-6 shadow-soft backdrop-blur-sm transition-shadow hover:shadow-soft-lg"
             >
-              <span className="text-2xl">{feature.icon}</span>
-              <h4 className="mt-3 text-sm font-bold text-slate-900">{feature.title}</h4>
-              <p className="mt-1 text-xs text-slate-500">{feature.desc}</p>
+              <div
+                className={`inline-flex h-11 w-11 items-center justify-center rounded-xl ${feature.color}`}
+              >
+                <feature.icon className="h-5 w-5" />
+              </div>
+              <h4 className="mt-4 text-sm font-extrabold text-slate-900">
+                {feature.title}
+              </h4>
+              <p className="mt-1.5 text-xs leading-relaxed text-slate-500">
+                {feature.desc}
+              </p>
             </motion.div>
           ))}
         </motion.div>
