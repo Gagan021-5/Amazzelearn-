@@ -467,7 +467,11 @@ export default function CircuitBuilder({ controller }) {
                             : 1,
                         boxShadow:
                           evaluation.success || controller.status === "success"
-                            ? "0 0 0 18px rgba(250,204,21,0.22)"
+                            ? [
+                                "0 0 0 8px rgba(250,204,21,0.3), 0 0 30px rgba(250,204,21,0.25)",
+                                "0 0 0 18px rgba(250,204,21,0.15), 0 0 50px rgba(250,204,21,0.35)",
+                                "0 0 0 8px rgba(250,204,21,0.3), 0 0 30px rgba(250,204,21,0.25)",
+                              ]
                             : `0 0 0 0 ${evaluation.glow}`,
                       }}
                       transition={{
@@ -479,14 +483,20 @@ export default function CircuitBuilder({ controller }) {
                       }}
                       className="mx-auto flex h-28 w-28 items-center justify-center rounded-full border-8 border-slate-300 bg-white"
                     >
-                      <div
-                        className={`h-14 w-14 rounded-full ${
-                          evaluation.success || controller.status === "success"
-                            ? "bg-yellow-300"
-                            : evaluation.currentFlows
-                              ? "bg-violet-300"
-                              : "bg-slate-200"
-                        }`}
+                      <motion.div
+                        animate={{
+                          backgroundColor:
+                            evaluation.success || controller.status === "success"
+                              ? ["#fde68a", "#fbbf24", "#fde68a"]
+                              : evaluation.currentFlows
+                                ? "#c4b5fd"
+                                : "#e2e8f0",
+                        }}
+                        transition={{
+                          duration: 1.2,
+                          repeat: evaluation.success || controller.status === "success" ? Infinity : 0,
+                        }}
+                        className="h-14 w-14 rounded-full"
                       />
                     </motion.div>
                   </div>

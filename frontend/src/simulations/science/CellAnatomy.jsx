@@ -2,18 +2,41 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { useSinglePlacementGame } from "../../hooks/useSinglePlacementGame";
 
+/**
+ * Cell Anatomy Map — 5 organelles (Nucleus, Mitochondria, Ribosomes, ER, Golgi)
+ * Students drag organelle labels to correct drop-zones in a large SVG cell.
+ */
+
 const organelles = [
   {
     id: "nucleus",
     label: "Nucleus",
-    note: "Controls the cell and stores genetic material.",
+    note: "Controls the cell and stores genetic material (DNA).",
     tone: "from-fuchsia-400 to-pink-400",
   },
   {
     id: "mitochondria",
     label: "Mitochondria",
-    note: "Produces energy for the cell.",
+    note: "The powerhouse — produces ATP energy for the cell.",
     tone: "from-amber-300 to-orange-400",
+  },
+  {
+    id: "ribosomes",
+    label: "Ribosomes",
+    note: "Tiny factories that build proteins from amino acids.",
+    tone: "from-sky-300 to-cyan-400",
+  },
+  {
+    id: "er",
+    label: "Endoplasmic Reticulum",
+    note: "A network of membranes that transports materials through the cell.",
+    tone: "from-emerald-300 to-teal-400",
+  },
+  {
+    id: "golgi",
+    label: "Golgi Apparatus",
+    note: "Packages and ships proteins to their destinations.",
+    tone: "from-violet-300 to-indigo-400",
   },
 ];
 
@@ -22,15 +45,41 @@ const zones = [
     id: "nucleus-zone",
     label: "Nucleus Zone",
     hint: "Large central organelle",
+    correctId: "nucleus",
     top: "top-[38%]",
-    left: "left-[42%]",
+    left: "left-[35%]",
   },
   {
     id: "mitochondria-zone",
     label: "Mitochondria Zone",
     hint: "Bean-shaped power center",
-    top: "top-[66%]",
-    left: "left-[64%]",
+    correctId: "mitochondria",
+    top: "top-[62%]",
+    left: "left-[68%]",
+  },
+  {
+    id: "ribosomes-zone",
+    label: "Ribosomes Zone",
+    hint: "Small dotted particles",
+    correctId: "ribosomes",
+    top: "top-[28%]",
+    left: "left-[65%]",
+  },
+  {
+    id: "er-zone",
+    label: "ER Zone",
+    hint: "Folded membrane network",
+    correctId: "er",
+    top: "top-[55%]",
+    left: "left-[25%]",
+  },
+  {
+    id: "golgi-zone",
+    label: "Golgi Zone",
+    hint: "Stacked membrane discs",
+    correctId: "golgi",
+    top: "top-[72%]",
+    left: "left-[42%]",
   },
 ];
 
@@ -53,9 +102,11 @@ export default function CellAnatomy({ controller }) {
     [],
   );
 
-  const completed =
-    placements["nucleus-zone"] === "nucleus" &&
-    placements["mitochondria-zone"] === "mitochondria";
+  const completed = zones.every(
+    (zone) => placements[zone.id] === zone.correctId,
+  );
+
+  const placedCount = zones.filter((zone) => placements[zone.id]).length;
 
   const handleSelect = (itemId) => {
     controller.clearFeedback();
@@ -72,11 +123,21 @@ export default function CellAnatomy({ controller }) {
   };
 
   const handleCheck = () => {
+    if (zones.some((zone) => !placements[zone.id])) {
+      controller.submitAttempt(false, {
+        failure:
+          "Place all five organelles into their zones before checking the anatomy map.",
+        locked:
+          "You have used all attempts. Restart the cell map and place the organelles again.",
+      });
+      return;
+    }
+
     controller.submitAttempt(completed, {
       success:
-        "Cell map complete. The nucleus and mitochondria are both in their correct locations.",
+        "Cell map complete! All five organelles — Nucleus, Mitochondria, Ribosomes, ER, and Golgi — are correctly placed.",
       failure:
-        "One or more organelles are misplaced. Review each zone and try again.",
+        "One or more organelles are misplaced. Review each zone carefully and try again.",
       locked:
         "You have used all attempts. Restart the cell map and place the organelles again.",
     });
@@ -89,6 +150,9 @@ export default function CellAnatomy({ controller }) {
           Organelle Tray
         </p>
         <h2 className="mt-2 text-2xl font-bold">Drag into the cell</h2>
+        <p className="mt-2 text-sm text-slate-500">
+          {placedCount}/{organelles.length} placed
+        </p>
         <div className="inventory-rail hide-scrollbar mt-5">
           {organelles.map((organelle) => (
             <button
@@ -113,7 +177,7 @@ export default function CellAnatomy({ controller }) {
             >
               <div className="flex items-start gap-3">
                 <div
-                  className={`mt-1 h-10 w-10 rounded-2xl bg-gradient-to-br ${organelle.tone}`}
+                  className={`mt-1 h-10 w-10 shrink-0 rounded-2xl bg-gradient-to-br ${organelle.tone}`}
                 />
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
@@ -142,84 +206,164 @@ export default function CellAnatomy({ controller }) {
 
         <div className="mt-6 rounded-[28px] bg-[linear-gradient(180deg,#f0fdf4_0%,#ffffff_54%,#eff6ff_100%)] p-4 sm:p-6">
           <div className="overflow-x-auto pb-2">
-            <div className="relative min-h-[420px] min-w-[640px] overflow-hidden rounded-[26px] border border-white/70 bg-white/85 p-4">
-            <svg viewBox="0 0 640 360" className="absolute inset-0 h-full w-full">
-              <motion.ellipse
-                cx="320"
-                cy="180"
-                rx="245"
-                ry="130"
-                fill="rgba(187,247,208,0.35)"
-                stroke={controller.status === "success" ? "#10b981" : "#86efac"}
-                strokeWidth="10"
-                animate={{
-                  scale: controller.status === "success" ? [1, 1.02, 1] : 1,
-                }}
-                transition={{ duration: 1.5, repeat: controller.status === "success" ? Infinity : 0 }}
-              />
-              <ellipse
-                cx="220"
-                cy="150"
-                rx="54"
-                ry="42"
-                fill="rgba(244,114,182,0.16)"
-                stroke="#f472b6"
-                strokeDasharray="10 10"
-                strokeWidth="6"
-              />
-              <ellipse
-                cx="410"
-                cy="230"
-                rx="70"
-                ry="34"
-                fill="rgba(251,191,36,0.16)"
-                stroke="#f59e0b"
-                strokeDasharray="10 10"
-                strokeWidth="6"
-              />
-              <circle cx="128" cy="178" r="18" fill="rgba(59,130,246,0.15)" />
-              <circle cx="492" cy="138" r="14" fill="rgba(14,165,233,0.15)" />
-              <circle cx="516" cy="232" r="12" fill="rgba(59,130,246,0.15)" />
-            </svg>
-
-            {zones.map((zone) => {
-              const organelle = placements[zone.id]
-                ? organelleMap[placements[zone.id]]
-                : null;
-
-              return (
-                <button
-                  key={zone.id}
-                  type="button"
-                  disabled={controller.isLocked}
-                  onClick={() => handlePlace(zone.id, selectedItemId)}
-                  onDragOver={(event) => event.preventDefault()}
-                  onDrop={(event) => {
-                    event.preventDefault();
-                    handlePlace(zone.id, selectedItemId);
+            <div className="relative min-h-[480px] min-w-[700px] overflow-hidden rounded-[26px] border border-white/70 bg-white/85 p-4">
+              {/* ── Rich SVG Cell Diagram ── */}
+              <svg viewBox="0 0 700 420" className="absolute inset-0 h-full w-full">
+                {/* Cell membrane */}
+                <motion.ellipse
+                  cx="350"
+                  cy="210"
+                  rx="290"
+                  ry="160"
+                  fill="rgba(187,247,208,0.25)"
+                  stroke={controller.status === "success" ? "#10b981" : "#86efac"}
+                  strokeWidth="10"
+                  animate={{
+                    scale: controller.status === "success" ? [1, 1.02, 1] : 1,
                   }}
-                  className={`absolute ${zone.top} ${zone.left} flex min-h-[88px] min-w-[140px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[24px] border-2 border-dashed border-slate-300 bg-white/80 px-4 py-3 text-center shadow-sm transition hover:border-sky-300`}
-                >
-                  {organelle ? (
-                    <div>
-                      <div
-                        className={`mx-auto h-10 w-10 rounded-2xl bg-gradient-to-br ${organelle.tone}`}
-                      />
-                      <p className="mt-2 text-sm font-semibold text-slate-800">
-                        {organelle.label}
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                        {zone.label}
-                      </p>
-                      <p className="mt-1 text-sm text-slate-600">{zone.hint}</p>
-                    </div>
-                  )}
-                </button>
-              );
-            })}
+                  transition={{
+                    duration: 1.5,
+                    repeat: controller.status === "success" ? Infinity : 0,
+                  }}
+                />
+
+                {/* Nucleus outline — large central ellipse */}
+                <ellipse
+                  cx="240"
+                  cy="165"
+                  rx="62"
+                  ry="50"
+                  fill="rgba(244,114,182,0.12)"
+                  stroke="#f472b6"
+                  strokeDasharray="10 10"
+                  strokeWidth="5"
+                />
+                {/* Nucleolus dot */}
+                <circle cx="230" cy="160" r="12" fill="rgba(236,72,153,0.18)" />
+
+                {/* Mitochondria outline — bean shape */}
+                <ellipse
+                  cx="480"
+                  cy="265"
+                  rx="68"
+                  ry="32"
+                  fill="rgba(251,191,36,0.12)"
+                  stroke="#f59e0b"
+                  strokeDasharray="10 10"
+                  strokeWidth="5"
+                />
+                {/* Mitochondria inner folds (cristae) */}
+                <path
+                  d="M440 265q10-18 20 0 M460 265q10-18 20 0 M480 265q10-18 20 0 M500 265q10-18 20 0"
+                  fill="none"
+                  stroke="rgba(245,158,11,0.3)"
+                  strokeWidth="2"
+                />
+
+                {/* Ribosomes zone — scattered dots */}
+                <circle cx="460" cy="120" r="4" fill="rgba(56,189,248,0.35)" />
+                <circle cx="448" cy="132" r="3" fill="rgba(56,189,248,0.3)" />
+                <circle cx="472" cy="128" r="4" fill="rgba(56,189,248,0.35)" />
+                <circle cx="456" cy="110" r="3" fill="rgba(56,189,248,0.25)" />
+                <circle cx="480" cy="118" r="3" fill="rgba(56,189,248,0.3)" />
+                <circle cx="440" cy="118" r="3.5" fill="rgba(56,189,248,0.3)" />
+                <circle
+                  cx="460"
+                  cy="122"
+                  r="30"
+                  fill="none"
+                  stroke="#38bdf8"
+                  strokeDasharray="8 8"
+                  strokeWidth="4"
+                />
+
+                {/* ER zone — wavy folded membrane */}
+                <path
+                  d="M130 230q20-22 40 0q20 22 40 0q20-22 40 0"
+                  fill="none"
+                  stroke="#10b981"
+                  strokeDasharray="8 8"
+                  strokeWidth="5"
+                />
+                <path
+                  d="M130 250q20-22 40 0q20 22 40 0q20-22 40 0"
+                  fill="none"
+                  stroke="rgba(16,185,129,0.3)"
+                  strokeWidth="3"
+                />
+                <rect
+                  x="120"
+                  y="210"
+                  width="110"
+                  height="60"
+                  rx="14"
+                  fill="rgba(16,185,129,0.06)"
+                  stroke="#10b981"
+                  strokeDasharray="8 8"
+                  strokeWidth="3"
+                />
+
+                {/* Golgi zone — stacked discs */}
+                <ellipse cx="300" cy="310" rx="50" ry="10" fill="rgba(139,92,246,0.12)" stroke="#8b5cf6" strokeDasharray="8 8" strokeWidth="4" />
+                <ellipse cx="300" cy="322" rx="44" ry="9" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" strokeDasharray="8 8" strokeWidth="3" />
+                <ellipse cx="300" cy="333" rx="38" ry="8" fill="rgba(139,92,246,0.06)" stroke="#8b5cf6" strokeDasharray="8 8" strokeWidth="3" />
+
+                {/* Additional cell details — background organelles */}
+                <circle cx="560" cy="175" r="10" fill="rgba(59,130,246,0.1)" />
+                <circle cx="145" cy="145" r="8" fill="rgba(14,165,233,0.1)" />
+                <circle cx="530" cy="340" r="7" fill="rgba(59,130,246,0.1)" />
+                <circle cx="190" cy="330" r="6" fill="rgba(16,185,129,0.12)" />
+              </svg>
+
+              {/* ── Drop zones ── */}
+              {zones.map((zone) => {
+                const organelle = placements[zone.id]
+                  ? organelleMap[placements[zone.id]]
+                  : null;
+
+                return (
+                  <motion.button
+                    key={zone.id}
+                    type="button"
+                    disabled={controller.isLocked}
+                    onClick={() => handlePlace(zone.id, selectedItemId)}
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={(event) => {
+                      event.preventDefault();
+                      handlePlace(zone.id, selectedItemId);
+                    }}
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`absolute ${zone.top} ${zone.left} flex min-h-[80px] min-w-[130px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[22px] border-2 border-dashed px-4 py-3 text-center shadow-sm transition ${
+                      organelle
+                        ? "border-emerald-300 bg-emerald-50/80"
+                        : "border-slate-300 bg-white/80 hover:border-sky-300"
+                    }`}
+                  >
+                    {organelle ? (
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                      >
+                        <div
+                          className={`mx-auto h-10 w-10 rounded-2xl bg-gradient-to-br ${organelle.tone}`}
+                        />
+                        <p className="mt-2 text-sm font-semibold text-slate-800">
+                          {organelle.label}
+                        </p>
+                      </motion.div>
+                    ) : (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                          {zone.label}
+                        </p>
+                        <p className="mt-1 text-sm text-slate-600">{zone.hint}</p>
+                      </div>
+                    )}
+                  </motion.button>
+                );
+              })}
             </div>
           </div>
 

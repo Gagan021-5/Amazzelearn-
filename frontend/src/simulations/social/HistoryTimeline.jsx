@@ -207,15 +207,29 @@ export default function HistoryTimeline({ controller }) {
             <div className="space-y-5">
               <div className="overflow-hidden rounded-[28px] border border-white/70 bg-white/90 p-4 sm:p-6">
                 <div className="hidden items-center gap-3 xl:flex">
-                  <motion.div
-                    animate={{ opacity: solved ? 1 : 0.55 }}
-                    className="h-2 flex-1 rounded-full bg-slate-200"
-                  >
+                  <div className="relative h-2 flex-1 rounded-full bg-slate-200">
                     <motion.div
                       className="h-2 rounded-full bg-emerald-400"
                       animate={{ width: solved ? "100%" : `${sequencePreview.length * 16}%` }}
+                      transition={{ duration: 0.4 }}
                     />
-                  </motion.div>
+                    {/* Dot markers for each slot */}
+                    {slots.map((slot, index) => (
+                      <motion.div
+                        key={slot.id}
+                        className="absolute top-1/2 -translate-y-1/2"
+                        style={{ left: `${(index / (slots.length - 1)) * 100}%` }}
+                        initial={false}
+                        animate={{
+                          scale: placements[slot.id] ? [1.4, 1] : 1,
+                          backgroundColor: placements[slot.id] ? "#10b981" : "#e2e8f0",
+                        }}
+                        transition={{ duration: 0.35 }}
+                      >
+                        <div className="h-4 w-4 -translate-x-1/2 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: "inherit" }} />
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-4 grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
@@ -246,9 +260,10 @@ export default function HistoryTimeline({ controller }) {
                             {event ? (
                               <motion.div
                                 key={event.id}
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
+                                initial={{ opacity: 0, y: 12, scale: 0.9 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                                transition={{ type: "spring", stiffness: 280, damping: 20 }}
                               >
                                 <div
                                   className={`h-10 w-10 rounded-2xl bg-gradient-to-br ${event.tone}`}

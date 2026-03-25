@@ -512,6 +512,27 @@ export default function ChemistryLab({ controller }) {
                             repeat: liquidRaised ? Infinity : 0,
                           }}
                         />
+                        {/* Celebration glow ring on correct reaction */}
+                        {(outcome.success || controller.status === "success") && (
+                          <motion.circle
+                            cx="160"
+                            cy="146"
+                            r="92"
+                            fill="none"
+                            stroke="rgba(16,185,129,0.35)"
+                            strokeWidth="6"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{
+                              scale: [1, 1.15, 1],
+                              opacity: [0.6, 0.2, 0.6],
+                            }}
+                            transition={{
+                              duration: 1.8,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                        )}
                         <text
                           x="160"
                           y="182"

@@ -53,8 +53,8 @@ export const simulationCatalog = [
     topic: "Biology",
     title: "Cell Anatomy Map",
     summary:
-      "Place the nucleus and mitochondria into the correct organelle zones inside a large animated cell.",
-    challenge: "Match the organelles",
+      "Place the nucleus, mitochondria, ribosomes, endoplasmic reticulum, and Golgi apparatus into the correct organelle zones inside a large animated cell.",
+    challenge: "Map all five organelles",
     estimatedTime: "5-6 min",
     accent: "from-emerald-400 to-cyan-300",
     instructions: [
@@ -72,7 +72,7 @@ export const simulationCatalog = [
     topic: "Geometry",
     title: "Right Triangle Builder",
     summary:
-      "Drag side lengths onto a triangle model, compare the square areas, and build a valid Pythagorean triple with hypotenuse 10.",
+      "Drag side lengths onto a triangle model, compare the square areas, and build a valid Pythagorean triple. Use Slider Mode for real-time exploration or Drag Mode for the challenge.",
     challenge: "Build c = 10",
     estimatedTime: "6-8 min",
     accent: "from-amber-400 to-rose-400",
@@ -110,8 +110,8 @@ export const simulationCatalog = [
     topic: "Geography",
     title: "Map Matching Game",
     summary:
-      "Match country name labels to simplified SVG map silhouettes in a bright, classroom-friendly atlas.",
-    challenge: "Label the map",
+      "Match continent name labels to simplified SVG silhouettes on a world-map atlas with seven continents.",
+    challenge: "Label all continents",
     estimatedTime: "5-6 min",
     accent: "from-emerald-400 to-lime-300",
     instructions: [
