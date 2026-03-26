@@ -4,6 +4,7 @@ import CellAnatomy from "./science/CellAnatomy";
 import ChemistryLab from "./science/ChemistryLab";
 import CircuitBuilder from "./science/CircuitBuilder";
 import CivicsSort from "./social/CivicsSort";
+import EconomicsSectorSort from "./social/EconomicsSectorSort";
 import GeographyMatch from "./social/GeographyMatch";
 import HistoryTimeline from "./social/HistoryTimeline";
 
@@ -159,6 +160,25 @@ export const simulationCatalog = [
       "Use the overlay hint to refine any bucket that still needs correction.",
     ],
     component: CivicsSort,
+  },
+  {
+    id: "economics-sector-sort",
+    subjectId: "social-science",
+    subjectLabel: "Social Science",
+    topic: "Economics",
+    title: "Economic Sectors Sort",
+    summary:
+      "Sort occupations and activities into the primary, secondary, and tertiary sectors to understand how economies organize work.",
+    challenge: "Sort the sectors",
+    estimatedTime: "6-7 min",
+    accent: "from-emerald-400 via-lime-300 to-yellow-300",
+    instructions: [
+      "Choose an occupation or activity card from the tray.",
+      "Place it into the correct sector: Primary, Secondary, or Tertiary.",
+      "Continue until all cards are sorted across the three sector columns.",
+      "Check the full board to confirm every activity is grouped into the right economic sector.",
+    ],
+    component: EconomicsSectorSort,
   },
 ];
 

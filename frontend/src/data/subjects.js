@@ -28,12 +28,17 @@ export const subjectCatalog = [
     title: "Social Science",
     path: "/subject/social-science",
     eyebrow: "Connect people, place, and power",
-    heroTitle: "Match maps, order events, and sort civic roles with confidence.",
+    heroTitle:
+      "Match maps, order events, sort civic roles, and classify economic activity with confidence.",
     description:
-      "Interactive geography, history, and civics games help students understand chronology, institutions, and global awareness.",
+      "Interactive geography, history, civics, and economics games help students understand chronology, institutions, global awareness, and economic sectors.",
     accent: "from-emerald-300 via-lime-300 to-yellow-300",
     glow: "bg-emerald-100",
-    highlights: ["Map matching", "Timeline builder", "Government sorting"],
+    highlights: [
+      "Map matching",
+      "Economics sector sort",
+      "Timeline builder",
+    ],
   },
 ];
 
